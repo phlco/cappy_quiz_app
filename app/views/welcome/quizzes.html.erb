@@ -1,0 +1,29 @@
+<h1>Calc</h1>
+<label for="Input">Input</label><input type="text" name="Input" value="" id="Input">
+<button>calc</button>
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+  $('button').on('click', calcIt)
+})
+
+var calcIt = function() {
+  debugger;
+  var vals = $('input').val()
+  if ( ordered(vals) ) {
+    $('body').addClass('green')
+  } else {
+    $('body').addClass('red')
+  }
+}
+var ordered = function(vals) {
+  var splitVals = vals.split(',')
+  var answer = true;
+  for (var i = 1; i < splitVals.length; i++) {
+    if ( parseInt(splitVals[i]) < parseInt(splitVals[i-1]) ) {
+      answer = false;
+    }
+  };
+  return answer;
+}
+</script>

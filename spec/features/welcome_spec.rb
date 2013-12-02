@@ -14,7 +14,6 @@ require 'spec_helper'
 #   ""\ \___//
 #      `w   "
 describe "The Home Page" do
-
   before(:each) do
     visit '/'
   end
@@ -23,58 +22,88 @@ describe "The Home Page" do
     expect(page).to have_content("hello and welcome")
   end
 
-  # it "has the title 'Week 10'" do
-  #   expect(page).to have_title "Week 10"
-  # end
+   it "has the title 'Week 10'" do
+     expect(page).to have_title "Week 10"
+   end
 
-  # it "has a link to /javascript" do
-  #   find_link('JavaScript').click
-  #   expect(page).to have_content('Java Jive')
-  #   expect(current_path).to eq('/javascript')
-  # end
+   it "has a link to /javascript" do
+     find_link('JavaScript').click
+     expect(page).to have_content('Java Jive')
+     expect(current_path).to eq('/javascript')
+   end
 
+   it "has a link to /quizzes" do
+     find_link('Quizzes').click
+     expect(page).to have_content('Calc')
+     expect(current_path).to eq('/quizzes')
+   end
+end
+
+describe 'A page called Quizzes' do
+  before(:each) do
+    visit '/quizzes'
+  end
+
+  it "should have an input field and button labeled calc" do
+    expect(page).to have_selector('input')
+    button = page.find('button')
+    label = 'calc'
+    expect(button.has_content?(label)).to be true
+  end
+
+  describe "the form", :js=> true do
+    it "changes background to green if numbers are entered in order" do
+      fill_in 'Input', with: '1,3,5,12'
+      click_button('calc')
+      expect(page).to have_css('body.green')
+    end
+
+    it "red if not" do
+      fill_in 'Input', with: '5,3,5,12'
+      click_button('calc')
+      expect(page).to have_css('body.red')
+    end
+  end
 end
 
 describe 'A page called JavaScript' do
+   before(:each) do
+     visit '/javascript'
+   end
 
-  # before(:each) do
-  #   visit '/javascript'
-  # end
+   it "Has an h1 with the text 'Java Jive'" do
+     h1 = page.find('h1')
+     text = 'Java Jive'
+     expect(h1.has_content?(text)).to be true
+   end
 
-  # it "Has an h1 with the text 'Java Jive'" do
-  #   h1 = page.find('h1')
-  #   text = 'Java Jive'
-  #   expect(h1.has_content?(text)).to be true
-  # end
+   it "has a button labeled 'Click Me!'" do
+     button = page.find('button')
+     label = 'Click Me!'
+     expect(button.has_content?(label)).to be true
+   end
 
-  # it "has a button labeled 'Click Me!'" do
-  #   button = page.find('button')
-  #   label = 'Click Me!'
-  #   expect(button.has_content?(label)).to be true
-  # end
+   describe "clicking the button with JavaScript enabled", :js => true do
 
-  # describe "clicking the button with JavaScript enabled", :js => true do
+     before(:each) do
+       click_button('Click Me!');
+     end
 
-  #   before(:each) do
-  #     click_button('Click Me!');
-  #   end
+     it "changes the h1's text to Jabba Jive using jQuery" do
+       expect(page).to have_content('Jabba Jive')
+       expect(page).to have_no_content('Java Jive')
+     end
 
-  #   it "changes the h1's text to Jabba Jive using jQuery" do
-  #     expect(page).to have_content('Jabba Jive')
-  #     expect(page).to have_no_content('Java Jive')
-  #   end
+     it "changes the body's background to pink", :js => true do
+       expect(page).to have_css('body.pink')
+     end
 
-  #   it "changes the body's background to pink", :js => true do
-  #     expect(page).to have_css('body.pink')
-  #   end
+     it "disables the button", :js => true do
+       button = page.find('button')
+       expect(button.disabled?).to be true
+     end
 
-  #   it "disables the button", :js => true do
-  #     button = page.find('button')
-  #     expect(button.disabled?).to be true
-  #   end
-
-  # end
-
+   end
 end
 
 # MORE?!

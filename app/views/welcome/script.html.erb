@@ -1,0 +1,16 @@
+<h1>
+Java Jive
+</h1>
+
+<button>Click Me!</button>
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+  $('button').on('click', function() {
+    var header = $('h1')
+    header.text('Jabba Jive')
+    $('body').addClass('pink');
+    $(this).attr('disabled','disabled')
+  })
+})
+</script>

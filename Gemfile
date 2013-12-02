@@ -4,10 +4,10 @@ gem 'rails', '3.2.13'
 
 gem 'sqlite3'
 
-group :test do
+group :test, :development do
   gem 'capybara'
   gem 'rspec-rails'
-  gem 'capybara-webkit'
+  gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'launchy'
 end
