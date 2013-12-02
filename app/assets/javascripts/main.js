@@ -19,6 +19,10 @@ $(document).ready(function(){
       numberArray.sort();
       sortedString = numberArray.join("");
       nonSortedString = originalArray.join("");
+      sortedString = sortedString.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+      nonSortedString = nonSortedString.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+      sortedString = sortedString.replace(/\s{2,}/g," ");
+      nonSortedString = nonSortedString.replace(/\s{2,}/g," ");
       console.log(originalArray);
       console.log(numberArray);
       // debugger;
